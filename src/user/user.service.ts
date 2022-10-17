@@ -10,8 +10,12 @@ export class UserService {
     private usersRepository: Repository<User>,
 	) { }
 
-  findAll(): Promise<User[]> | any {
-		return this.usersRepository.findBy({isActive: true});
+	findAll(): Promise<User[]> | any {
+		const paginateOptions = {
+			skip: 2,
+			take: 2
+		}
+		return this.usersRepository.find(paginateOptions);
   }
 
   findOne(id: number): Promise<User> {
@@ -35,6 +39,6 @@ export class UserService {
 	}
 
   delete(id: number): Promise<User> | any {
-    return this.usersRepository.softDelete(id);
+    return this.usersRepository.delete(id);
   }
 }

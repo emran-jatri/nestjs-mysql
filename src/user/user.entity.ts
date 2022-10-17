@@ -17,14 +17,14 @@ export class User {
 	isActive: boolean;
 	
 	@DeleteDateColumn()
-	@Column({ name: 'deleted_at', nullable: true })
+	// @Column({ name: 'deleted_at', nullable: true })
 	public deletedAt?: Date
 
 	@CreateDateColumn({ type: 'timestamp' })
-	@Column({ name: 'created_at' })
+	// @Column({ name: 'created_at' })
 	public createdAt!: Date
 
 	@UpdateDateColumn({ type: 'timestamp' })
-	@Column({ name: 'updated_at' })
+	// @Column({ name: 'updated_at' })
 	public updatedAt!: Date
 }
