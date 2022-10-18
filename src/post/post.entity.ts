@@ -1,3 +1,4 @@
+import { User } from 'src/user/user.entity';
 import {
   Entity,
   Column,
@@ -5,18 +6,21 @@ import {
   DeleteDateColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+	JoinColumn,
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  firstName: string;
+  content: string;
 
-  @Column()
-  lastName: string;
+	@ManyToOne(() => User)
+	@JoinColumn()
+  createdBy: User;
 
   @Column({ default: true })
   status: boolean;

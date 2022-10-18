@@ -5,38 +5,38 @@ import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-	constructor(
+  constructor(
     @InjectRepository(User)
     private usersRepository: Repository<User>,
-	) { }
+  ) {}
 
-	findAll(): Promise<User[]> | any {
-		const paginateOptions = {
-			skip: 2,
-			take: 2
-		}
-		return this.usersRepository.find(paginateOptions);
+  findAll(): Promise<User[]> | any {
+    const paginateOptions = {
+      skip: 0,
+      take: 100,
+    };
+    return this.usersRepository.find(paginateOptions);
   }
 
   findOne(id: number): Promise<User> {
     return this.usersRepository.findOneBy({ id });
-	}
-	
-	create(body: any): Promise<User> {
-		let user = new User();
-		user.firstName = body.firstName;
-		user.lastName = body.lastName;
-		user.status = body.status;
-		return this.usersRepository.save(user);
-	}
+  }
 
-	async update(body: any): Promise<User> {
-		let user = await this.findOne(body.id);
-		user.firstName = body.firstName;
-		user.lastName = body.lastName;
-		user.status = body.status;
-		return this.usersRepository.save(user);
-	}
+  create(body: any): Promise<User> {
+    const user = new User();
+    user.firstName = body.firstName;
+    user.lastName = body.lastName;
+    user.status = body.status;
+    return this.usersRepository.save(user);
+  }
+
+  async update(body: any): Promise<User> {
+    const user = await this.findOne(body.id);
+    user.firstName = body.firstName;
+    user.lastName = body.lastName;
+    user.status = body.status;
+    return this.usersRepository.save(user);
+  }
 
   delete(id: number): Promise<User> | any {
     return this.usersRepository.delete(id);
