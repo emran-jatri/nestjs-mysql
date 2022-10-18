@@ -26,7 +26,7 @@ export class UserService {
 		let user = new User();
 		user.firstName = body.firstName;
 		user.lastName = body.lastName;
-		user.isActive = body.isActive;
+		user.status = body.status;
 		return this.usersRepository.save(user);
 	}
 
@@ -34,7 +34,7 @@ export class UserService {
 		let user = await this.findOne(body.id);
 		user.firstName = body.firstName;
 		user.lastName = body.lastName;
-		user.isActive = body.isActive;
+		user.status = body.status;
 		return this.usersRepository.save(user);
 	}
 

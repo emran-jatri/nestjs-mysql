@@ -14,7 +14,7 @@ export class User {
   lastName: string;
 
   @Column({ default: true })
-	isActive: boolean;
+	status: boolean;
 	
 	@DeleteDateColumn()
 	// @Column({ name: 'deleted_at', nullable: true })
