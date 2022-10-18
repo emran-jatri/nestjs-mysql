@@ -15,19 +15,29 @@ export class PostService {
 
   findAll(): Promise<Post[]> | any {
     const paginateOptions = {
+      select: {
+        id: true,
+        content: true,
+        createdBy: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+        status: true,
+      },
+      relations: {
+        createdBy: true,
+      },
+      where: {
+        createdBy: {
+          firstName: 'Emran 5',
+        },
+      },
+      // order: {
+      //   content: 'DESC',
+      // },
       skip: 0,
       take: 100,
-			select: {
-				id: true,
-				content: true,
-				createdBy: {
-					id: true,
-					firstName: true,
-				}
-      },
-			relations: {
-				createdBy: true,
-      },
     };
     return this.postsRepository.find(paginateOptions);
   }
