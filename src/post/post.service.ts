@@ -28,18 +28,25 @@ export class PostService {
       relations: {
         createdBy: true,
       },
-      where: {
-        createdBy: {
-          firstName: 'Emran 5',
-        },
-      },
+      // where: {
+      //   createdBy: {
+      //     firstName: 'Emran 5',
+      //   },
+      // },
       // order: {
       //   content: 'DESC',
       // },
+			groupBy: {
+				createdBy: {
+					id: true,
+				}
+			},
       skip: 0,
       take: 100,
-    };
-    return this.postsRepository.find(paginateOptions);
+		};
+		// return this.postsRepository.createQueryBuilder()
+		return this.postsRepository.find(paginateOptions);
+		
   }
 
   findOne(id: number): Promise<Post> {
