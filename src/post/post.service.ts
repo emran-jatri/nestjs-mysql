@@ -2,8 +2,14 @@ import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserService } from 'src/user/user.service';
-import { Repository } from 'typeorm';
+import {
+  FindManyOptions,
+  FindOneOptions,
+  FindOptionsOrder,
+  Repository,
+} from 'typeorm';
 import { Post } from './post.entity';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class PostService {
@@ -14,7 +20,7 @@ export class PostService {
   ) {}
 
   findAll(): Promise<Post[]> | any {
-    const paginateOptions = {
+    const paginateOptions: FindManyOptions<Post> = {
       select: {
         id: true,
         content: true,
@@ -33,20 +39,23 @@ export class PostService {
       //     firstName: 'Emran 5',
       //   },
       // },
-      // order: {
-      //   content: 'DESC',
-      // },
-			groupBy: {
-				createdBy: {
-					id: true,
-				}
-			},
+      order: {
+        id: 'DESC',
+      },
       skip: 0,
       take: 100,
-		};
-		// return this.postsRepository.createQueryBuilder()
-		return this.postsRepository.find(paginateOptions);
-		
+    };
+    // return this.postsRepository.createQueryBuilder()
+    return this.postsRepository.find(paginateOptions);
+    // return (
+    //   this.postsRepository
+    //     .createQueryBuilder('post')
+    //     .leftJoinAndSelect('post.createdBy', 'user')
+    //     // .select(['post.id', 'post.content'])
+    //     // .from(Post, 'post')
+    //     // .groupBy('createdBy.id')
+    //     .getMany()
+    // );
   }
 
   findOne(id: number): Promise<Post> {

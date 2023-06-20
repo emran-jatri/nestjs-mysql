@@ -14,12 +14,18 @@ export class UserService {
     const paginateOptions = {
       skip: 0,
       take: 100,
+      withDeleted: true,
     };
     return this.usersRepository.find(paginateOptions);
   }
 
   findOne(id: number): Promise<User> {
-    return this.usersRepository.findOneBy({ id });
+    return this.usersRepository.findOne({
+      where: {
+        id,
+      },
+      withDeleted: true,
+    });
   }
 
   create(body: any): Promise<User> {
@@ -39,6 +45,6 @@ export class UserService {
   }
 
   delete(id: number): Promise<User> | any {
-    return this.usersRepository.delete(id);
+    return this.usersRepository.softDelete(id);
   }
 }
